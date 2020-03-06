@@ -28,11 +28,11 @@ const ConnectionContainer = ({date}) => {
   }, [targetUrl]);
 
   if (errorText) {
-    return <h1> {errorText} </h1>;
+    return <ErrorMessage errorText={errorText} />;
   }
 
   if (!connections) {
-    return <h1> Loading ... </h1>;
+    return <Loading />;
   }
 
   return <Connections date={date} connections={connections} />;
