@@ -1,17 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import {Box, TableRow, TableCell, Link} from '@material-ui/core';
 
 const ConnectionRow = ({connection}) => {
   const departure = connection.segments[0].departure;
   const arrival = connection.segments[connection.segments.length - 1].arrival;
 
   return (
-    <tr>
-      <td>{connection.transport}</td>
-      <td>{departure}</td>
-      <td>{arrival}</td>
-      <td>{connection.duration}</td>
-      <td>{connection.price}</td>
-    </tr>
+    <TableRow key={connection.id}>
+      <TableCell>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <img
+            style={{maxWidth: 50, maxHeight: 50}}
+            alt="icon"
+            src={connection.icon}
+          />
+          {connection.transport.toUpperCase()}
+        </Box>
+      </TableCell>
+      <TableCell>{departure}</TableCell>
+      <TableCell>{arrival}</TableCell>
+      <TableCell>{connection.duration}</TableCell>
+      <TableCell>{connection.price}</TableCell>
+      <TableCell>
+        <Link href={connection.url}>Details</Link>
+      </TableCell>
+    </TableRow>
   );
 };
 

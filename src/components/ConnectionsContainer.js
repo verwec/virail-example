@@ -5,7 +5,9 @@ import Loading from './Loading';
 
 const ConnectionContainer = ({date}) => {
   const API = 'https://www.virail.com/virail/v7/search/en_us?';
-  const query = `from=c.3173435&to=c.3169070&lang=en_us&dt=${date}&currency=USD&adult_passengers=1`;
+  const apiFormatedDate = date.format('YYYY-MM-DD');
+  const readableDate = date.format('MMM Do YY');
+  const query = `from=c.3173435&to=c.3169070&lang=en_us&dt=${apiFormatedDate}&currency=USD&adult_passengers=1`;
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const targetUrl = API + query;
 
@@ -35,7 +37,7 @@ const ConnectionContainer = ({date}) => {
     return <Loading />;
   }
 
-  return <Connections date={date} connections={connections} />;
+  return <Connections date={readableDate} connections={connections} />;
 };
 
 export default ConnectionContainer;

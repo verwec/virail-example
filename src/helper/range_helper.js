@@ -6,5 +6,5 @@ export const nextSevenDays = () => {
   const range = moment.range(moment(), moment().add(7, 'day'));
   const days = Array.from(range.by('day'));
 
-  return days.map( day => day.format('YYYY-MM-DD') )
+  return days;
 };
