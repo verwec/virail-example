@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
 import ConnectionsContainer from './components/ConnectionsContainer';
+import {nextSevenDays} from './helper/range_helper';
 
 const App = () => {
-  return <ConnectionsContainer />;
+  const days = nextSevenDays();
+  return days.map(date => <ConnectionsContainer date={date} />);
 };
 
 export default App;

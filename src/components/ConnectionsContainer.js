@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import Connections from './Connections';
+import ErrorMessage from './ErrorMessage';
+import Loading from './Loading';
 
-function App() {
+const ConnectionContainer = ({date}) => {
   const API = 'https://www.virail.com/virail/v7/search/en_us?';
-  const QUERY =
-    'from=c.3173435&to=c.3169070&lang=en_us&dt=2020-03-10&currency=USD&adult_passengers=1';
+  const query = `from=c.3173435&to=c.3169070&lang=en_us&dt=${date}&currency=USD&adult_passengers=1`;
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  const targetUrl = API + QUERY;
+  const targetUrl = API + query;
 
   const [errorText, setErrorText] = useState();
   const [connections, setConnnections] = useState();
@@ -15,7 +16,11 @@ function App() {
     fetch(proxyUrl + targetUrl)
       .then(blob => blob.json())
       .then(data => {
-        setConnnections(data.result);
+        const orderedByPrice = data.result.sort((b, a) => {
+          return parseFloat(b.price) - parseFloat(a.price);
+        });
+
+        setConnnections(orderedByPrice.slice(0, 3));
       })
       .catch(e => {
         setErrorText(e.message);
@@ -30,7 +35,7 @@ function App() {
     return <h1> Loading ... </h1>;
   }
 
-  return <Connections connections={connections} />;
-}
+  return <Connections date={date} connections={connections} />;
+};
 
-export default App;
+export default ConnectionContainer;

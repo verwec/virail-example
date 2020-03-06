@@ -1,8 +1,10 @@
 import React from 'react';
-import ConnectionRow from './ConnectionRow'
+import ConnectionRow from './ConnectionRow';
 
-const Connections = ({connections}) => {
+const Connections = ({connections, date}) => {
   return (
+    <>
+    {date}
     <table>
       <thead>
         <tr>
@@ -19,6 +21,7 @@ const Connections = ({connections}) => {
         ))}
       </tbody>
     </table>
+    </>
   );
 };
 
